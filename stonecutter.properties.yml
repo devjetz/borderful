@@ -1,9 +1,9 @@
 mod:
-  id: "locator-border"
+  id: "borderful"
   group: "dev.liqw"
   description: "Moves the pesky locator bar to the border of the screen, out of sight!"
-  sources_url: "https://github.com/liqwtf/locator-border"
-  issues_url: "https://github.com/liqwtf/locator-border/issues"
+  sources_url: "https://github.com/devjetz/borderful"
+  issues_url: "https://github.com/devjetz/borderful/issues"
   version: "1.2.9"
 
 loomx.loom_version: "1.16-SNAPSHOT"

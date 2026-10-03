@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "name": "Locator Border",
-  "id": "locator-border",
+  "name": "Borderful",
+  "id": "borderful",
   "description": "${description}",
   "version": "${version}",
   "authors": [ "liqw" ],
@@ -10,18 +10,18 @@
     "issues": "${issues}"
   },
   "license": "MIT",
-  "icon": "assets/locator-border/icon.png",
+  "icon": "assets/borderful/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.liqw.locatorborder.LocatorBorder"
+      "dev.liqw.borderful.Borderful"
     ],
     "modmenu": [
-      "dev.liqw.locatorborder.config.ModMenuIntegration"
+      "dev.liqw.borderful.config.ModMenuIntegration"
     ]
   },
   "mixins": [
-    "locator-border.mixins.json"
+    "borderful.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader}",

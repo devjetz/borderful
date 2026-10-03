@@ -5,18 +5,18 @@ issueTrackerUrl = "${issues}"
 license = "MIT"
 
 [[mods]]
-displayName = "Locator Border"
-modId = "locator_border"
+displayName = "Borderful"
+modId = "borderful"
 description = "${description}"
 version = "${version}"
 authors = "liqw"
 
-logoFile = "assets/locator-border/icon.png"
+logoFile = "assets/borderful/icon.png"
 
 [[mixings]]
-config = "locator-border.mixins.json"
+config = "borderful.mixins.json"
 
-[[dependencies.locator_border]]
+[[dependencies.borderful]]
 modId = "minecraft"
 type = "required"
 versionRange = "${minecraft}"

@@ -32,4 +32,4 @@ stonecutter {
     }
 }
 
-rootProject.name = "locator-border"
+rootProject.name = "borderful"

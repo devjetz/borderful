@@ -1,9 +1,9 @@
-package dev.liqw.locatorborder.mixin;
+package dev.liqw.borderful.mixin;
 
-import dev.liqw.locatorborder.LocatorBorder;
-import dev.liqw.locatorborder.config.LocatorBorderConfig;
-import dev.liqw.locatorborder.util.ScreenBounds;
-import dev.liqw.locatorborder.util.WaypointIcon;
+import dev.liqw.borderful.Borderful;
+import dev.liqw.borderful.config.BorderfulConfig;
+import dev.liqw.borderful.util.ScreenBounds;
+import dev.liqw.borderful.util.WaypointIcon;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -29,7 +29,7 @@ public abstract class LocatorMixin {
     //~ if <26 'extractRenderState' -> 'render'
     @Inject(method = "extractRenderState", at = @At("HEAD"), cancellable = true)
     public void onRender(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
-        LocatorBorderConfig config = LocatorBorder.getConfig();
+        BorderfulConfig config = Borderful.getConfig();
 
         if (!config.enabled) return;
 
@@ -63,6 +63,6 @@ public abstract class LocatorMixin {
     //~ if <26 'extractBackground' -> 'renderBackground'
     @Inject(method = "extractBackground", at = @At("HEAD"), cancellable = true)
     public void onRenderBackground(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
-        if (LocatorBorder.getConfig().enabled) ci.cancel();
+        if (Borderful.getConfig().enabled) ci.cancel();
     }
 }

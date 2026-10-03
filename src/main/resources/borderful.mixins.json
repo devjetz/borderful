@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "dev.liqw.locatorborder.mixin",
+  "package": "dev.liqw.borderful.mixin",
   "compatibilityLevel": "${java}",
   "mixins": [
     "ClientWaypointManagerMixin",

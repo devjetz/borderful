@@ -1,6 +1,6 @@
-package dev.liqw.locatorborder.util;
+package dev.liqw.borderful.util;
 
-import dev.liqw.locatorborder.config.LocatorBorderConfig;
+import dev.liqw.borderful.config.BorderfulConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.PlayerFaceExtractor;
@@ -32,9 +32,9 @@ public class WaypointIcon {
     private static final float SHADOW_BRIGHTNESS = 0.25f;
 
     private final Minecraft minecraft;
-    private final LocatorBorderConfig config;
+    private final BorderfulConfig config;
 
-    public WaypointIcon(Minecraft minecraft, LocatorBorderConfig config) {
+    public WaypointIcon(Minecraft minecraft, BorderfulConfig config) {
         this.minecraft = minecraft;
         this.config = config;
     }
@@ -53,7 +53,7 @@ public class WaypointIcon {
 
     public void render(GuiGraphicsExtractor graphics, ScreenBounds.RenderState state, Entity cameraEntity, TrackedWaypoint waypoint /*? if >1.21.7 {*/ , PartialTickSupplier tickSupplier /*? }*/) {
         UUID uuid = waypoint.id().left().orElse(null);
-        LocatorBorderConfig.CustomWaypoint customWaypoint = uuid != null ? config.customWaypointCache.get(uuid) : null;
+        BorderfulConfig.CustomWaypoint customWaypoint = uuid != null ? config.customWaypointCache.get(uuid) : null;
         PlayerInfo player = uuid != null ? minecraft.getConnection().getPlayerInfo(uuid) : null;
         boolean renderPlayerFace = config.waypoint.playerFace.enabled && uuid != null && customWaypoint == null;
 
@@ -146,7 +146,7 @@ public class WaypointIcon {
         return waypoint.id().left().map(minecraft.getConnection()::getPlayerInfo).map(info -> config.overrideCache.get(info.getProfile().name().toLowerCase())).map(o -> 0xFF000000 | o.color);
     }
 
-    public int getWaypointColor(TrackedWaypoint waypoint, LocatorBorderConfig.Waypoint.Color source) {
+    public int getWaypointColor(TrackedWaypoint waypoint, BorderfulConfig.Waypoint.Color source) {
         return getOverrideColor(waypoint).orElseGet(() -> switch (source) {
             case Waypoint -> waypoint.icon().color.orElseGet(() ->
                     waypoint.id().map(
@@ -163,10 +163,10 @@ public class WaypointIcon {
         });
     }
 
-    private int getOutlineColor(TrackedWaypoint waypoint, LocatorBorderConfig.Waypoint.PlayerFace.Outline.Color source) {
+    private int getOutlineColor(TrackedWaypoint waypoint, BorderfulConfig.Waypoint.PlayerFace.Outline.Color source) {
         return getOverrideColor(waypoint).orElseGet(() -> switch (source) {
-            case Waypoint -> getWaypointColor(waypoint, LocatorBorderConfig.Waypoint.Color.Waypoint);
-            case Team -> getWaypointColor(waypoint, LocatorBorderConfig.Waypoint.Color.Team);
+            case Waypoint -> getWaypointColor(waypoint, BorderfulConfig.Waypoint.Color.Waypoint);
+            case Team -> getWaypointColor(waypoint, BorderfulConfig.Waypoint.Color.Team);
             case Black -> 0xFF000000;
         });
     }

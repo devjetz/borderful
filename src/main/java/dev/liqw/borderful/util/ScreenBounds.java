@@ -1,6 +1,6 @@
-package dev.liqw.locatorborder.util;
+package dev.liqw.borderful.util;
 
-import dev.liqw.locatorborder.config.LocatorBorderConfig;
+import dev.liqw.borderful.config.BorderfulConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.util.Mth;
@@ -19,17 +19,17 @@ public class ScreenBounds {
 
     private final Minecraft minecraft;
     private final GuiGraphicsExtractor graphics;
-    private final LocatorBorderConfig config;
+    private final BorderfulConfig config;
     private TrackedWaypoint waypoint;
 
-    public ScreenBounds(Minecraft minecraft, GuiGraphicsExtractor graphics, LocatorBorderConfig config, TrackedWaypoint waypoint) {
+    public ScreenBounds(Minecraft minecraft, GuiGraphicsExtractor graphics, BorderfulConfig config, TrackedWaypoint waypoint) {
         this.minecraft = minecraft;
         this.graphics = graphics;
         this.config = config;
         this.waypoint = waypoint;
     }
 
-    public ScreenBounds(Minecraft minecraft, GuiGraphicsExtractor graphics, LocatorBorderConfig config) {
+    public ScreenBounds(Minecraft minecraft, GuiGraphicsExtractor graphics, BorderfulConfig config) {
         this.minecraft = minecraft;
         this.graphics = graphics;
         this.config = config;

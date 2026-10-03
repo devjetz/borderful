@@ -1,8 +1,8 @@
-package dev.liqw.locatorborder.mixin;
+package dev.liqw.borderful.mixin;
 
 import com.mojang.datafixers.util.Either;
-import dev.liqw.locatorborder.LocatorBorder;
-import dev.liqw.locatorborder.config.LocatorBorderConfig;
+import dev.liqw.borderful.Borderful;
+import dev.liqw.borderful.config.BorderfulConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.waypoints.ClientWaypointManager;
@@ -30,9 +30,9 @@ public abstract class ClientWaypointManagerMixin {
     private void populateWaypointsMap(Entity fromEntity, Consumer<TrackedWaypoint> consumer, CallbackInfo ci) {
         if (!(fromEntity.level() instanceof ClientLevel level)) return;
 
-        LocatorBorderConfig config = LocatorBorder.getConfig();
+        BorderfulConfig config = Borderful.getConfig();
 
-        for (LocatorBorderConfig.CustomWaypoint customWaypoint : config.customWaypoints) {
+        for (BorderfulConfig.CustomWaypoint customWaypoint : config.customWaypoints) {
             if (!customWaypoint.enabled) continue;
 
             consumer.accept(TrackedWaypoint.setPosition(
@@ -65,7 +65,7 @@ public abstract class ClientWaypointManagerMixin {
 
     @Inject(method = "hasWaypoints", at = @At("HEAD"), cancellable = true)
     private void forceHasWaypoints(CallbackInfoReturnable<Boolean> cir) {
-        LocatorBorderConfig config = LocatorBorder.getConfig();
+        BorderfulConfig config = Borderful.getConfig();
         if (config.forceWaypoints || config.customWaypoints.stream().anyMatch(waypoint -> waypoint.enabled)) {
             cir.setReturnValue(true);
         }

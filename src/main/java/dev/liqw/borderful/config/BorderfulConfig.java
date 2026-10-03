@@ -1,6 +1,6 @@
-package dev.liqw.locatorborder.config;
+package dev.liqw.borderful.config;
 
-import dev.liqw.locatorborder.LocatorBorder;
+import dev.liqw.borderful.Borderful;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -8,8 +8,8 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Config(name = LocatorBorder.MOD_ID)
-public class LocatorBorderConfig implements ConfigData {
+@Config(name = Borderful.MOD_ID)
+public class BorderfulConfig implements ConfigData {
     @ConfigEntry.Gui.Excluded
     public transient Map<String, PlayerSpecificConfig.Override> overrideCache = new HashMap<>();
 

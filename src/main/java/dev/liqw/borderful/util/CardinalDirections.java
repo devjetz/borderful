@@ -1,4 +1,4 @@
-package dev.liqw.locatorborder.util;
+package dev.liqw.borderful.util;
 
 public class CardinalDirections {
     public static final Direction[] DIRECTIONS = new Direction[] {

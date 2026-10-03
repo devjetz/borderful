@@ -1,5 +1,5 @@
-text.autoconfig.locator-border:
-  title: "Locator Border Configuration"
+text.autoconfig.borderful:
+  title: "Borderful Configuration"
   category:
     default: "General"
     custom_waypoints: "Custom Waypoints"

@@ -1,8 +1,8 @@
 ![Borderful](https://cdn.modrinth.com/data/cached_images/1f957598f7a77ad945079d2228bd547f603399fc.png)
 
-<p align="center"><b>Locator Border</b> is a client-side mod that moves player waypoints off the locator bar and onto the edges of your screen. Your experience bar stays visible, your HUD stays clean, and you always know where everyone is.</p>
+<p align="center"><b>Borderful</b> is a client-side mod that moves player waypoints off the locator bar and onto the edges of your screen. Your experience bar stays visible, your HUD stays clean, and you always know where everyone is.</p>
 
-<div align="center"><a href="https://modrinth.com/mod/locator-border"><img alt="modrinth" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/modrinth_vector.svg"></a> <a href="https://www.curseforge.com/minecraft/mc-mods/locator-border"><img alt="curseforge" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/curseforge_vector.svg"></a> <a href="https://github.com/dev-jetz/locator-border"><img alt="github" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/github_vector.svg"></a></div>
+<div align="center"><a href="https://modrinth.com/mod/locator-border"><img alt="modrinth" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/modrinth_vector.svg"></a> <a href="https://www.curseforge.com/minecraft/mc-mods/locator-border"><img alt="curseforge" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/curseforge_vector.svg"></a> <a href="https://github.com/devjetz/borderful"><img alt="github" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/github_vector.svg"></a></div>
 
 ---
 
@@ -15,6 +15,8 @@ See where players are, wherever they are. Waypoints are projected to the edge of
 Pretty much everything is configurable. Render waypoints as player skin faces, add named custom waypoints by entering their coordinates, give a specific player their own custom color, keep someone permanently focused, or throw a compass in on the HUD among the waypoints, so you always know which way is north.
 
 Custom waypoint coordinates are entered in the **Custom Waypoints** category and use the coordinates of the current dimension. Their names are shown when their waypoint is focused.
+
+The mod was previously named Locator Border. Existing `config/locator-border.json` settings are copied to `config/borderful.json` the first time the renamed mod starts.
 
 ### Compatibility
 1. [Locator Lodestones](https://modrinth.com/mod/locator_lodestones)

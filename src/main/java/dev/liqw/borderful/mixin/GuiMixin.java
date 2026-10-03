@@ -1,9 +1,9 @@
-package dev.liqw.locatorborder.mixin;
+package dev.liqw.borderful.mixin;
 
-import dev.liqw.locatorborder.LocatorBorder;
-import dev.liqw.locatorborder.config.LocatorBorderConfig;
-import dev.liqw.locatorborder.util.CardinalDirections;
-import dev.liqw.locatorborder.util.ScreenBounds;
+import dev.liqw.borderful.Borderful;
+import dev.liqw.borderful.config.BorderfulConfig;
+import dev.liqw.borderful.util.CardinalDirections;
+import dev.liqw.borderful.util.ScreenBounds;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -40,7 +40,7 @@ public abstract class GuiMixin {
     /*
     @ModifyVariable(method = "nextContextualInfoState", at = @At("STORE"), ordinal = 0)
     public boolean forceLocatorStateOff(boolean original) {
-        if (LocatorBorder.getConfig().enabled) return false;
+        if (Borderful.getConfig().enabled) return false;
         return original;
     }
 
@@ -49,8 +49,8 @@ public abstract class GuiMixin {
     @Inject(method = "extractHotbarAndDecorations", at = @At("TAIL"))
     //? } else
     //@Inject(method = "renderContextualInfoBar", at = @At("HEAD"), cancellable = true)
-    public void renderLocatorBorder(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
-        LocatorBorderConfig config = LocatorBorder.getConfig();
+    public void renderBorder(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
+        BorderfulConfig config = Borderful.getConfig();
 
         if (config.enabled && this.minecraft.player != null && this.minecraft.player.connection.getWaypointManager().hasWaypoints()) {
             if (this.renderer == null) {
@@ -71,8 +71,8 @@ public abstract class GuiMixin {
 
     //? if >26.1 {
     @Inject(method = "extractRenderState", at = @At("TAIL"))
-    public void extractLocatorBorder(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
-        LocatorBorderConfig config = LocatorBorder.getConfig();
+    public void extractBorder(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
+        BorderfulConfig config = Borderful.getConfig();
 
         if (config.enabled && this.minecraft.player != null && this.minecraft.player.connection.getWaypointManager().hasWaypoints()) {
             if (this.renderer == null) {
@@ -88,7 +88,7 @@ public abstract class GuiMixin {
 
     @Unique
     private void renderCardinalDirections(GuiGraphicsExtractor graphics) {
-        LocatorBorderConfig config = LocatorBorder.getConfig();
+        BorderfulConfig config = Borderful.getConfig();
 
         if (!config.enabled || !config.compass.enabled) return;
         //? if <26.2 {

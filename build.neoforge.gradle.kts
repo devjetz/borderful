@@ -58,7 +58,7 @@ neoForge {
 
 fletchingTable {
     lang.create("main") {
-        patterns.add("assets/locator-border/lang/**")
+        patterns.add("assets/borderful/lang/**")
     }
 }
 
@@ -79,12 +79,14 @@ tasks {
     named("compileJava") {
         dependsOn("stonecutterGenerate")
     }
-    named("sourcesJar") {
+    named<Jar>("sourcesJar") {
         dependsOn("stonecutterGenerate")
+        exclude("dev/liqw/locatorborder/**", "assets/locator-border/**")
     }
 
     processResources {
         exclude("**/fabric.mod.json")
+        exclude("assets/locator-border", "assets/locator-border/**")
 
         fun MutableMap<String, String>.register(key: String, property: String) {
             val value: String = sc.properties[property]
@@ -128,7 +130,7 @@ publishMods {
 
     file = tasks.jar.map { it.archiveFile.get() }
     additionalFiles.from(project.tasks.getByName("sourcesJar"))
-    displayName = "Locator Border ${property("mod.version")} for NeoForge ${sc.current.version}"
+    displayName = "Borderful ${property("mod.version")} for NeoForge ${sc.current.version}"
     version = project.version.toString()
     changelog = rootProject.file("CHANGELOG.md").readText()
     type = STABLE
