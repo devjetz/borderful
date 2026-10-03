@@ -1,4 +1,4 @@
-![Borderful](https://cdn.modrinth.com/data/cached_images/1f957598f7a77ad945079d2228bd547f603399fc.png)
+![Borderful](./src/main/resources/assets/borderful/banner.png)
 
 <p align="center"><b>Borderful</b> is a client-side mod that moves player waypoints off the locator bar and onto the edges of your screen. Your experience bar stays visible, your HUD stays clean, and you always know where everyone is.</p>
 
