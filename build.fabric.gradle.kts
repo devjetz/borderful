@@ -46,6 +46,11 @@ dependencies {
 
     modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
     fapi("fabric-lifecycle-events-v1", "fabric-resource-loader-v0", "fabric-content-registries-v0")
+    if (sc.current.parsed >= "26.1") {
+        fapi("fabric-key-mapping-api-v1")
+    } else {
+        fapi("fabric-key-binding-api-v1")
+    }
 
     modImplementation("me.shedaniel.cloth:cloth-config-fabric:${property("cloth_config_version")}")
     modImplementation("com.terraformersmc:modmenu:${property("mod_menu_version")}")

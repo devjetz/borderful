@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.waypoints.TrackedWaypoint;
 import net.minecraft.world.waypoints.Waypoint;
+import java.util.Optional;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,12 +33,12 @@ public abstract class ClientWaypointManagerMixin {
 
         BorderfulConfig config = Borderful.getConfig();
 
-        for (BorderfulConfig.CustomWaypoint customWaypoint : config.customWaypoints) {
+        for (BorderfulConfig.CustomWaypoint customWaypoint : Borderful.getCurrentServerWaypoints(net.minecraft.client.Minecraft.getInstance())) {
             if (!customWaypoint.enabled) continue;
 
             consumer.accept(TrackedWaypoint.setPosition(
                     customWaypoint.getRuntimeId(),
-                    Waypoint.Icon.NULL,
+                    customWaypointIcon(customWaypoint),
                     new BlockPos(customWaypoint.x, customWaypoint.y, customWaypoint.z)
             ));
         }
@@ -63,10 +64,16 @@ public abstract class ClientWaypointManagerMixin {
         ci.cancel();
     }
 
+    private static Waypoint.Icon customWaypointIcon(BorderfulConfig.CustomWaypoint customWaypoint) {
+        Waypoint.Icon icon = new Waypoint.Icon();
+        icon.color = Optional.of(0xFF000000 | customWaypoint.color);
+        return icon;
+    }
+
     @Inject(method = "hasWaypoints", at = @At("HEAD"), cancellable = true)
     private void forceHasWaypoints(CallbackInfoReturnable<Boolean> cir) {
         BorderfulConfig config = Borderful.getConfig();
-        if (config.forceWaypoints || config.customWaypoints.stream().anyMatch(waypoint -> waypoint.enabled)) {
+        if (config.forceWaypoints || Borderful.getCurrentServerWaypoints(net.minecraft.client.Minecraft.getInstance()).stream().anyMatch(waypoint -> waypoint.enabled)) {
             cir.setReturnValue(true);
         }
     }

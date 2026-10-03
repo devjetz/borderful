@@ -52,6 +52,10 @@ text.autoconfig.borderful:
       y.@Tooltip: "Y coordinate in the current dimension"
       z: "Z"
       z.@Tooltip: "Z coordinate in the current dimension"
+      color: "Color"
+      color.@Tooltip: "Color of this custom waypoint"
+      serverId: "Server / World"
+      serverId.@Tooltip: "Server address or singleplayer world this waypoint belongs to"
       enabled: "Enabled"
       enabled.@Tooltip: "Show this waypoint on the screen border"
     overrides: "Player Overrides"
@@ -75,3 +79,24 @@ text.autoconfig.borderful:
     forceWaypoints: "Force Waypoints"
     forceWaypoints.@Tooltip: "Render waypoints (only players within distance) even if the server has the locator bar disabled"
     animations: "Enable Animations"
+key:
+  borderful:
+    quick_add_waypoint: "Quick add waypoint at current position"
+    open_waypoint_menu: "Create waypoint"
+message:
+  borderful:
+    waypoint_added: "Added {0} at {1}, {2}, {3}"
+screen:
+  borderful:
+    create_waypoint: "Create Waypoint"
+    add_waypoint: "Add Waypoint"
+    waypoint_name: "Name"
+    x: "X"
+    y: "Y"
+    z: "Z"
+    color: "Color"
+    palette: "Palette"
+    randomize: "Random"
+    error_name_required: "Enter a name for the waypoint"
+    error_coordinates: "Coordinates must be whole numbers"
+    error_color: "Color must be a 6-digit hex value (for example #FF8800)"

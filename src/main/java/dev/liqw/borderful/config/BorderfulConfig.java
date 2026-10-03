@@ -4,9 +4,12 @@ import dev.liqw.borderful.Borderful;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Config(name = Borderful.MOD_ID)
 public class BorderfulConfig implements ConfigData {
@@ -72,8 +75,68 @@ public class BorderfulConfig implements ConfigData {
         public int y;
         public int z;
 
+        @ConfigEntry.ColorPicker
+        @ConfigEntry.Gui.Tooltip
+        public int color = randomColor();
+
+        @ConfigEntry.Gui.Tooltip
+        public String serverId;
+
         @ConfigEntry.Gui.Tooltip
         public boolean enabled = true;
+
+        public CustomWaypoint() {
+            Minecraft minecraft = Minecraft.getInstance();
+            if (minecraft != null) {
+                serverId = Borderful.getCurrentServerId(minecraft);
+                if (minecraft.player != null) setPosition(minecraft.player.blockPosition());
+            }
+        }
+
+        public CustomWaypoint(String name, BlockPos position) {
+            this();
+            this.name = name;
+            setPosition(position);
+        }
+
+        private void setPosition(BlockPos position) {
+            x = position.getX();
+            y = position.getY();
+            z = position.getZ();
+        }
+
+        public static int randomColor() {
+            float hue = ThreadLocalRandom.current().nextFloat() * 6.0f;
+            float secondary = 1.0f - Math.abs(hue % 2.0f - 1.0f);
+            float red = 0.0f;
+            float green = 0.0f;
+            float blue = 0.0f;
+
+            if (hue < 1.0f) {
+                red = 1.0f;
+                green = secondary;
+            } else if (hue < 2.0f) {
+                red = secondary;
+                green = 1.0f;
+            } else if (hue < 3.0f) {
+                green = 1.0f;
+                blue = secondary;
+            } else if (hue < 4.0f) {
+                green = secondary;
+                blue = 1.0f;
+            } else if (hue < 5.0f) {
+                red = secondary;
+                blue = 1.0f;
+            } else {
+                red = 1.0f;
+                blue = secondary;
+            }
+
+            int r = 0x50 + Math.round(red * 0xAF);
+            int g = 0x50 + Math.round(green * 0xAF);
+            int b = 0x50 + Math.round(blue * 0xAF);
+            return (r << 16) | (g << 8) | b;
+        }
 
         public UUID getRuntimeId() {
             return id;

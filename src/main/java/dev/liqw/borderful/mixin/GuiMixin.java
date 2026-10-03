@@ -70,6 +70,11 @@ public abstract class GuiMixin {
     *///? }
 
     //? if >26.1 {
+    @ModifyVariable(method = "nextContextualInfoState", at = @At("STORE"), ordinal = 0)
+    private boolean borderful$hideLocatorBar(boolean hasWaypoints) {
+        return Borderful.getConfig().enabled ? false : hasWaypoints;
+    }
+
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     public void extractBorder(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
         BorderfulConfig config = Borderful.getConfig();
