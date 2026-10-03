@@ -40,7 +40,8 @@ public class WaypointIcon {
     }
 
     public int getBaseSize(TrackedWaypoint waypoint, Entity cameraEntity) {
-        boolean renderPlayerFace = config.waypoint.playerFace.enabled && waypoint.id().left().isPresent();
+        boolean renderPlayerFace = config.waypoint.playerFace.enabled
+                && waypoint.id().left().filter(uuid -> !config.customWaypointCache.containsKey(uuid)).isPresent();
 
         if (renderPlayerFace) {
             float distance = Mth.sqrt((float) waypoint.distanceSquared(cameraEntity));
@@ -52,8 +53,9 @@ public class WaypointIcon {
 
     public void render(GuiGraphicsExtractor graphics, ScreenBounds.RenderState state, Entity cameraEntity, TrackedWaypoint waypoint /*? if >1.21.7 {*/ , PartialTickSupplier tickSupplier /*? }*/) {
         UUID uuid = waypoint.id().left().orElse(null);
+        LocatorBorderConfig.CustomWaypoint customWaypoint = uuid != null ? config.customWaypointCache.get(uuid) : null;
         PlayerInfo player = uuid != null ? minecraft.getConnection().getPlayerInfo(uuid) : null;
-        boolean renderPlayerFace = config.waypoint.playerFace.enabled && uuid != null;
+        boolean renderPlayerFace = config.waypoint.playerFace.enabled && uuid != null && customWaypoint == null;
 
         float distance = Mth.sqrt((float) waypoint.distanceSquared(cameraEntity));
         int baseSize = renderPlayerFace ? getPlayerFaceSize(distance) : BASE_DOT_SIZE;
@@ -81,18 +83,18 @@ public class WaypointIcon {
             //~ if <26 'extractRenderState' -> 'draw'
             PlayerFaceExtractor.extractRenderState(graphics, skin, -size / 2, -size / 2, size, state.setAlpha(0xFFFFFFFF));
         } else {
-            WaypointStyle style = minecraft.getWaypointStyles().get(waypoint.icon().style);
+            WaypointStyle style = minecraft.gui.hud.getWaypointStyles().get(waypoint.icon().style);
             int color = getWaypointColor(waypoint, config.waypoint.color);
 
             graphics.blitSprite(RenderPipelines.GUI_TEXTURED, style.sprite(distance), -size / 2, -size / 2, size, size, state.setAlpha(color));
         }
 
-        boolean showName = player != null && config.waypoint.focus.labels.name;
+        boolean showName = (player != null || customWaypoint != null) && config.waypoint.focus.labels.name;
         boolean showDistance = config.waypoint.focus.labels.distance;
 
         if ((showName || showDistance) && state.animationProgress() > 0f) {
             //~ if <1.21.7 'name()' -> 'getName()'
-            String nameText = showName ? player.getProfile().name() : null;
+            String nameText = showName ? (player != null ? player.getProfile().name() : customWaypoint.name) : null;
             String distanceText = showDistance ? (int) distance + "m" : null;
 
             renderLabels(graphics, nameText, distanceText, size, state);
@@ -155,8 +157,8 @@ public class WaypointIcon {
                     .map(minecraft.getConnection()::getPlayerInfo)
                     //~ if <1.21.7 'name()' -> 'getName()'
                     .map(info -> minecraft.level.getScoreboard().getPlayersTeam(info.getProfile().name()))
-                    .map(team -> team.getColor().getColor())
-                    .map(color -> 0xFF000000 | color)
+                    .flatMap(team -> team.getColor())
+                    .map(color -> 0xFF000000 | color.rgb())
                     .orElse(0xFFFFFFFF);
         });
     }

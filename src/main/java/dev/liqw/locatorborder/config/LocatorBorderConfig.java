@@ -19,6 +19,9 @@ public class LocatorBorderConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject(startExpanded = true)
     public Waypoint waypoint = new Waypoint();
 
+    @ConfigEntry.Category("custom_waypoints")
+    public List<CustomWaypoint> customWaypoints = new ArrayList<>();
+
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Category("overrides")
     public List<PlayerSpecificConfig> overrides = new ArrayList<>();
@@ -34,13 +37,47 @@ public class LocatorBorderConfig implements ConfigData {
     @ConfigEntry.Category("miscellaneous")
     public boolean animations = true;
 
+    @ConfigEntry.Gui.Excluded
+    public transient Map<UUID, CustomWaypoint> customWaypointCache = new HashMap<>();
+
     @Override
     public void validatePostLoad() {
         if (overrides == null) overrides = new ArrayList<>();
+        if (customWaypoints == null) customWaypoints = new ArrayList<>();
 
         overrides.removeIf(entry -> entry.name == null || entry.name.isBlank());
         overrideCache = overrides.stream()
                 .collect(Collectors.toMap(e -> e.name.toLowerCase(), e -> e.override));
+
+        customWaypoints.removeIf(Objects::isNull);
+        Set<UUID> waypointIds = new HashSet<>();
+        for (CustomWaypoint waypoint : customWaypoints) {
+            if (waypoint.id == null || !waypointIds.add(waypoint.id)) {
+                do {
+                    waypoint.id = UUID.randomUUID();
+                } while (!waypointIds.add(waypoint.id));
+            }
+            if (waypoint.name == null || waypoint.name.isBlank()) waypoint.name = "Waypoint";
+        }
+        customWaypointCache = customWaypoints.stream()
+                .collect(Collectors.toMap(CustomWaypoint::getRuntimeId, waypoint -> waypoint));
+    }
+
+    public static class CustomWaypoint {
+        @ConfigEntry.Gui.Excluded
+        public UUID id = UUID.randomUUID();
+
+        public String name = "Waypoint";
+        public int x;
+        public int y;
+        public int z;
+
+        @ConfigEntry.Gui.Tooltip
+        public boolean enabled = true;
+
+        public UUID getRuntimeId() {
+            return id;
+        }
     }
 
     public static class Waypoint {

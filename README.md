@@ -12,7 +12,9 @@
 See where players are, wherever they are. Waypoints are projected to the edge of the screen instead of obstructing the experience bar. Each waypoint can also be focused, causing it to be pulled inward to the center of the screen and scales however you like. Additional labels can also be added to each waypoint, such as player name and distance.
 
 ### Configuration
-Pretty much everything is configurable. Render waypoints as player skin faces, give a specific player their own custom color, keep someone permanently focused, or throw a compass in on the HUD among the waypoints, so you always know which way is north.
+Pretty much everything is configurable. Render waypoints as player skin faces, add named custom waypoints by entering their coordinates, give a specific player their own custom color, keep someone permanently focused, or throw a compass in on the HUD among the waypoints, so you always know which way is north.
+
+Custom waypoint coordinates are entered in the **Custom Waypoints** category and use the coordinates of the current dimension. Their names are shown when their waypoint is focused.
 
 ### Compatibility
 1. [Locator Lodestones](https://modrinth.com/mod/locator_lodestones)

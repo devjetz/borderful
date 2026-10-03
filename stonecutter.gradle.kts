@@ -1,10 +1,10 @@
 plugins {
     id("dev.kikugie.stonecutter")
-    id("net.neoforged.moddev") version "2.0.140" apply false
+    id("net.neoforged.moddev") version "2.0.148" apply false
     id("me.modmuss50.mod-publish-plugin") version "1.0.+" apply false
 }
 
-stonecutter active "26.1-fabric"
+stonecutter active "26.2-fabric"
 
 stonecutter tasks {
     val ordering = versionComparator
@@ -22,6 +22,14 @@ stonecutter parameters {
     properties.tags(version, loader)
 
     replacements {
+        string(current.parsed < "26.2") {
+            replace("LocatorBar", "LocatorBarRenderer")
+            replace("minecraft.gameRenderer.mainCamera()", "minecraft.gameRenderer.getMainCamera()")
+            replace("minecraft.gui.hud.getWaypointStyles()", "minecraft.getWaypointStyles()")
+            replace(".flatMap(team -> team.getColor())", ".map(team -> team.getColor().getColor())")
+            replace(".map(color -> 0xFF000000 | color.rgb())", ".map(color -> 0xFF000000 | color)")
+        }
+
         string(current.parsed < "26.0") {
             replace("GuiGraphicsExtractor", "GuiGraphics")
             replace("PlayerFaceExtractor", "PlayerFaceRenderer")
@@ -34,5 +42,6 @@ stonecutter parameters {
         string(current.parsed <= "1.21.10", "!skip_replace") {
             replace("AutoConfigClient", "AutoConfig")
         }
+
     }
 }

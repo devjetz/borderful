@@ -2,6 +2,7 @@ text.autoconfig.locator-border:
   title: "Locator Border Configuration"
   category:
     default: "General"
+    custom_waypoints: "Custom Waypoints"
     overrides: "Overrides"
     miscellaneous: "Miscellaneous"
   option:
@@ -37,10 +38,22 @@ text.autoconfig.locator-border:
         inset.@Tooltip: "Additional inset from the edge when focused"
         labels:
           .: "Labels"
-          name: "Display Player Name"
-          name.@Tooltip: "Show player's username next to their waypoint"
+          name: "Display Name"
+          name.@Tooltip: "Show the focused waypoint's name"
           distance: "Display Distance"
           distance.@Tooltip: "Show the distance to the waypoint"
+    customWaypoints: "Waypoints"
+    CustomWaypoint:
+      .: "Custom Waypoint"
+      name: "Name"
+      x: "X"
+      x.@Tooltip: "X coordinate in the current dimension"
+      y: "Y"
+      y.@Tooltip: "Y coordinate in the current dimension"
+      z: "Z"
+      z.@Tooltip: "Z coordinate in the current dimension"
+      enabled: "Enabled"
+      enabled.@Tooltip: "Show this waypoint on the screen border"
     overrides: "Player Overrides"
     PlayerSpecificConfig:
       .: "Override Entry"

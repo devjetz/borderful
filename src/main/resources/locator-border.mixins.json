@@ -5,7 +5,7 @@
   "mixins": [
     "ClientWaypointManagerMixin",
     "GuiMixin",
-    "LocatorBarRendererMixin"
+    "LocatorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

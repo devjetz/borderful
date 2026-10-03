@@ -73,7 +73,16 @@ java {
     }
 }
 
+sourceSets["main"].java.setSrcDirs(listOf(layout.buildDirectory.dir("generated/stonecutter/main/java")))
+
 tasks {
+    named("compileJava") {
+        dependsOn("stonecutterGenerate")
+    }
+    named("sourcesJar") {
+        dependsOn("stonecutterGenerate")
+    }
+
     processResources {
         exclude("**/fabric.mod.json")
 

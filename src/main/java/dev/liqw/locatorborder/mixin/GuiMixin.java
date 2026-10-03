@@ -7,21 +7,37 @@ import dev.liqw.locatorborder.util.ScreenBounds;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.contextualbar.LocatorBarRenderer;
+//? if >26.1 {
+import net.minecraft.client.gui.Hud;
+//? }
+import net.minecraft.client.gui.contextualbar.LocatorBar;
 import net.minecraft.world.entity.Entity;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Gui.class)
+//? if <26.2 {
+/*import net.minecraft.client.gui.Gui;
+*///? }
+
+//? if >26.1 {
+@Mixin(Hud.class)
+//? }
+//? if <26.2 {
+/*@Mixin(Gui.class)
+*///? }
 public abstract class GuiMixin {
     @Shadow @Final private Minecraft minecraft;
-    @Unique private LocatorBarRenderer renderer;
+    @Unique private LocatorBar renderer;
 
+    //? if <26.2 {
+    /*
     @ModifyVariable(method = "nextContextualInfoState", at = @At("STORE"), ordinal = 0)
     public boolean forceLocatorStateOff(boolean original) {
         if (LocatorBorder.getConfig().enabled) return false;
@@ -38,7 +54,7 @@ public abstract class GuiMixin {
 
         if (config.enabled && this.minecraft.player != null && this.minecraft.player.connection.getWaypointManager().hasWaypoints()) {
             if (this.renderer == null) {
-                this.renderer = new LocatorBarRenderer(this.minecraft);
+                this.renderer = new LocatorBar(this.minecraft);
             }
 
             //~ if <26 'renderer.extractRenderState' -> 'renderer.render'
@@ -48,10 +64,36 @@ public abstract class GuiMixin {
 
     //~ if <26 'extractRenderState' -> 'render'
     @Inject(method = "extractRenderState", at = @At("TAIL"))
-    public void renderCardinalDirections(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
+    public void extractCardinalDirections(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
+        renderCardinalDirections(graphics);
+    }
+    *///? }
+
+    //? if >26.1 {
+    @Inject(method = "extractRenderState", at = @At("TAIL"))
+    public void extractLocatorBorder(GuiGraphicsExtractor graphics, DeltaTracker delta, CallbackInfo ci) {
         LocatorBorderConfig config = LocatorBorder.getConfig();
 
-        if (!config.enabled || this.minecraft.options.hideGui || !config.compass.enabled) return;
+        if (config.enabled && this.minecraft.player != null && this.minecraft.player.connection.getWaypointManager().hasWaypoints()) {
+            if (this.renderer == null) {
+                this.renderer = new LocatorBar(this.minecraft);
+            }
+
+            this.renderer.extractRenderState(graphics, delta);
+        }
+
+        renderCardinalDirections(graphics);
+    }
+    //? }
+
+    @Unique
+    private void renderCardinalDirections(GuiGraphicsExtractor graphics) {
+        LocatorBorderConfig config = LocatorBorder.getConfig();
+
+        if (!config.enabled || !config.compass.enabled) return;
+        //? if <26.2 {
+        /*if (this.minecraft.options.hideGui) return;
+        *///? }
 
         Entity cameraEntity = this.minecraft.getCameraEntity();
         if (cameraEntity == null) return;

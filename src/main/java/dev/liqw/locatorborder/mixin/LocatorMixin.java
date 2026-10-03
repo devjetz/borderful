@@ -8,7 +8,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.contextualbar.LocatorBarRenderer;
+import net.minecraft.client.gui.contextualbar.LocatorBar;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
@@ -22,8 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.world.waypoints.PartialTickSupplier;
 //? }
 
-@Mixin(LocatorBarRenderer.class)
-public abstract class LocatorBarRendererMixin {
+@Mixin(LocatorBar.class)
+public abstract class LocatorMixin {
     @Shadow @Final private Minecraft minecraft;
 
     //~ if <26 'extractRenderState' -> 'render'
@@ -39,7 +39,7 @@ public abstract class LocatorBarRendererMixin {
         if (cameraEntity == null || this.minecraft.player == null) return;
 
         Level level = cameraEntity.level();
-        Camera camera = this.minecraft.gameRenderer.getMainCamera();
+        Camera camera = this.minecraft.gameRenderer.mainCamera();
 
         //? if >1.21.7 {
         boolean isFrozen = level.tickRateManager().isEntityFrozen(cameraEntity);

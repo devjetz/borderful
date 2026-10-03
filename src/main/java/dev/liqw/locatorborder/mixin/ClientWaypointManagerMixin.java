@@ -3,10 +3,11 @@ package dev.liqw.locatorborder.mixin;
 import com.mojang.datafixers.util.Either;
 import dev.liqw.locatorborder.LocatorBorder;
 import dev.liqw.locatorborder.config.LocatorBorderConfig;
+import net.minecraft.core.BlockPos;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.waypoints.ClientWaypointManager;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.waypoints.TrackedWaypoint;
 import net.minecraft.world.waypoints.Waypoint;
 import org.spongepowered.asm.mixin.Final;
@@ -31,6 +32,16 @@ public abstract class ClientWaypointManagerMixin {
 
         LocatorBorderConfig config = LocatorBorder.getConfig();
 
+        for (LocatorBorderConfig.CustomWaypoint customWaypoint : config.customWaypoints) {
+            if (!customWaypoint.enabled) continue;
+
+            consumer.accept(TrackedWaypoint.setPosition(
+                    customWaypoint.getRuntimeId(),
+                    Waypoint.Icon.NULL,
+                    new BlockPos(customWaypoint.x, customWaypoint.y, customWaypoint.z)
+            ));
+        }
+
         if (config.forceWaypoints) {
             for (Player player : level.players()) {
                 if (player == fromEntity || player.isInvisible()) continue;
@@ -54,7 +65,8 @@ public abstract class ClientWaypointManagerMixin {
 
     @Inject(method = "hasWaypoints", at = @At("HEAD"), cancellable = true)
     private void forceHasWaypoints(CallbackInfoReturnable<Boolean> cir) {
-        if (LocatorBorder.getConfig().forceWaypoints) {
+        LocatorBorderConfig config = LocatorBorder.getConfig();
+        if (config.forceWaypoints || config.customWaypoints.stream().anyMatch(waypoint -> waypoint.enabled)) {
             cir.setReturnValue(true);
         }
     }
