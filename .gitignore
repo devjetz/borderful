@@ -34,9 +34,6 @@ bin/
 
 run/
 
-# legacy mod config language file
-/src/main/resources/assets/locator-border/lang/en_us.yml
-
 # java
 
 hs_err_*.log
