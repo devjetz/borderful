@@ -2,7 +2,7 @@
 
 <p align="center"><b>Borderful</b> is a client-side Minecraft mod that moves player waypoint indicators from the locator bar to the edge of your screen. Keep the XP bar visible while staying aware of players and your waypoints around you.</p>
 
-<div align="center"><a href="https://modrinth.com/mod/locator-border"><img alt="modrinth" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/modrinth_vector.svg"></a> <a href="https://www.curseforge.com/minecraft/mc-mods/locator-border"><img alt="curseforge" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/curseforge_vector.svg"></a> <a href="https://github.com/devjetz/borderful"><img alt="github" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/github_vector.svg"></a></div>
+<div align="center"><a href="https://modrinth.com/mod/borderful"><img alt="modrinth" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/modrinth_vector.svg"></a> <a href="https://www.curseforge.com/minecraft/mc-mods/borderful"><img alt="curseforge" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/curseforge_vector.svg"></a> <a href="https://github.com/devjetz/borderful"><img alt="github" height="28" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/available/github_vector.svg"></a></div>
 
 ---
 
